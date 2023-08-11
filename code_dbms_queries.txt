@@ -1,0 +1,222 @@
+ create table match(team1 varchar(20) , team2 varchar(20) , min numeric(10) primary key , location varchar(20));
+CREATE TABLE
+
+postgres=# insert into match values('india','china',1,'berlin');
+INSERT 0 1
+postgres=# insert into match values('argentina','brazil',2,'paris');
+INSERT 0 1
+postgres=# insert into match values('psg','barcelona',3,'lusain');
+INSERT 0 1
+postgres=# insert into match values('france','portugal',4,'al khor');
+INSERT 0 1
+postgres=# insert into match values('australia','england',5,'al rayyan');
+INSERT 0 1
+postgres=# insert into match values('landmark','soude arab',6,'rio');
+INSERT 0 1
+postgres=# insert into match values('maxico','netherland',7,'moscow');
+INSERT 0 1
+postgres=# insert into match values('poland','spain',8,'jonisberg');
+INSERT 0 1
+postgres=# insert into match values('tunisia','kruesia',9,'solma');
+INSERT 0 1
+postgres=# insert into match values('costa rica','italy',9,'rome');
+ERROR:  duplicate key value violates unique constraint "match_pkey"
+DETAIL:  Key (min)=(9) already exists.
+postgres=# insert into match values('costa rica','italy',10,'rome');
+INSERT 0 1
+postgres=# select * from match;
+
+
+postgres=# create table stadium(sid numeric(10) primary key , min numeric(10) references match  , capacityinlakh numeric(15));
+CREATE TABLE
+
+
+
+postgres=# insert into stadium values('S001',1 , 2);
+INSERT 0 1
+postgres=# insert into stadium values('S002',2 , 4);
+INSERT 0 1
+postgres=# insert into stadium values('S003',3 , 9);
+INSERT 0 1
+postgres=# insert into stadium values('S004',4 , 7);
+INSERT 0 1
+postgres=# insert into stadium values('S005',5 ,16);
+INSERT 0 1
+postgres=# insert into stadium values('S006',6 ,27);
+INSERT 0 1
+postgres=# insert into stadium values('S007',7 ,30);
+INSERT 0 1
+postgres=# insert into stadium values('S008',8 ,20);
+INSERT 0 1
+postgres=# insert into stadium values('S009',9 ,22);
+INSERT 0 1
+postgres=# insert into stadium values('S010',10 ,33);
+INSERT 0 1
+postgres=# SELECT * FROM STADIUM;
+
+postgres=# CREATE TABLE COMMENTRATOR(CID VARCHAR(20) PRIMARY KEY , MIN NUMERIC(10) REFERENCES MATCH , COUNTRY VARCHAR(20) , CNAME VARCHAR(20) , LANGUAGE VARCHAR(20));
+CREATE TABLE
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C001',1,'INDIA','JAY','HINDI');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C002',2,'INDONESIA','LAURA','SPANISH');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C003',3,'JAPAN','ZURUKU','JAPANESE');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C004',4,'RUSIA','SELENA','RUSSIAN');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C005',5,'USA','JOHN','ENGLISH');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C006',6,'CANADA','JIM','CANADIAN');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C007',7,'FRENCH','SWET','FRENCH');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C008',8,'ITALY','KINZER','ITALIAN');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C009',9,'MAXICO','ARTIK','MAXICAN');
+INSERT 0 1
+postgres=# INSERT INTO COMMENTRATOR  VALUES ('C010',10,'AUSTRALIA','MERRY','AUSTRALIAN');
+INSERT 0 1
+postgres=# SELECT * FROM COMMENTRATOR;
+
+postgres=# CREATE TABLE CHANNEL(CHID VARCHAR(20) PRIMARY KEY  , CHCOUNTRY VARCHAR(20) , CID VARCHAR(20) REFERENCES COMMENTRATOR , CHNAME VARCHAR(20));
+CREATE TABLE
+
+
+postgres=# INSERT INTO CHANNEL VALUES('CH001','INDIA','C001','RUDRAX');
+INSERT 0 1
+postgres=# INSERT INTO CHANNEL VALUES('CH002','USA','C002','NIRAV');
+INSERT 0 1
+postgres=# INSERT INTO CHANNEL VALUES('CH003','QUTAR','C003','ARYAN');
+INSERT 0 1
+postgres=# INSERT INTO CHANNEL VALUES('CH004','CHINA','C004','BHAVYA');
+INSERT 0 1
+postgres=# INSERT INTO CHANNEL VALUES('CH005','KOREA','C005','NIRJ');
+INSERT 0 1
+postgres=# INSERT INTO CHANNEL VALUES('CH006','RUSSIA','C006','DEVEN');
+INSERT 0 1
+
+
+postgres=# CREATE TABLE FAN(FNAME VARCHAR(20),FID VARCHAR(20) PRIMARY KEY,SID VARCHAR(20) REFERENCES STADIUM,TID VARCHAR(20) REFERENCES TEAM);
+CREATE TABLE
+
+postgres=# INSERT INTO FAN VALUEs('aryan','f001','s001','t001');
+ERROR:  insert or update on table "fan" violates foreign key constraint "fan_sid_fkey"
+DETAIL:  Key (sid)=(s001) is not present in table "stadium".
+postgres=# INSERT INTO FAN VALUEs('aryan','F001','S001','T001');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('BHAVYA','F002','S002','T002');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('NIRJ','F003','S003','T003');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('DEVEN','F004','S004','T004');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('DEV','F005','S005','T005);
+postgres'# INSERT INTO FAN VALUEs('DEV','F005','S005','T005');
+postgres'# q
+postgres'# );
+postgres'# ');
+ERROR:  syntax error at or near "DEV"
+LINE 2: INSERT INTO FAN VALUEs('DEV','F005','S005','T005');
+                                ^
+postgres=# INSERT INTO FAN VALUEs('DEV','F005','S005','T005');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('dax','F006','S006','T006');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('meet','F007','S007','T007');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('het','F008','S008','T008');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('mann','F009','S009','T009');
+INSERT 0 1
+postgres=# INSERT INTO FAN VALUEs('om','F010','S010','T010');
+INSERT 0 1
+
+
+postgres=# create table umpire(uid varchar(20) primary key  , uname varchar(20) , min numeric(10) references match);
+CREATE TABLE
+postgres=# insert into umpire values('u001','avi',1);
+INSERT 0 1
+postgres=# insert into umpire values('u002','meet',2);
+INSERT 0 1
+postgres=# insert into umpire values('u003','methali',3);
+INSERT 0 1
+postgres=# insert into umpire values('u004','nir',4);
+INSERT 0 1
+postgres=# insert into umpire values('u005','het',5);
+INSERT 0 1
+postgres=# select * from umpire;
+
+
+postgres=# create table player(plname varchar(20) , pid varchar(20) primary key , dob date);
+CREATE TABLE
+postgres=# drop table player;
+DROP TABLE
+postgres=# create table player(plname varchar(20) , pid varchar(20) primary key , dob date, tid varchar(20) references team);
+CREATE TABLE
+postgres=# insert into player values(
+postgres(# );
+ERROR:  syntax error at or near ")"
+LINE 2: );
+        ^
+postgres=# insert into player values('messi','p001','30-7-1960','T001');
+INSERT 0 1
+postgres=# insert into player values('m BAPPE','p002','4-8-1968','T002');
+INSERT 0 1
+postgres=# insert into player values('RONALDO','p003','14-8-1988','T003');
+INSERT 0 1
+postgres=# insert into player values('NEYMAR','p004','24-8-1998','T004');
+INSERT 0 1
+postgres=# insert into player values('PELE','p005','1-1-1966','T005');
+INSERT 0 1
+postgres=# insert into player values('KEVIN','p006','4-10-1968','T006');
+INSERT 0 1
+postgres=# insert into player values('MOHAMMAD','p007','4-11-1968','T007');
+INSERT 0 1
+postgres=# insert into player values('SEDIO','p008','22-8-1968','T008');
+INSERT 0 1
+postgres=# insert into player values('SUNIL','p009','22-8-1968','T009');
+INSERT 0 1
+postgres=# insert into player values('ALFERO','p010','21-12-1968','T010');
+INSERT 0 1
+postgres=# SELECT * FROM PLAYER;
+
+
+
+postgres=# create table goal(gid varchar(20) primary key,time varchar(20),date date,pid varchar(20) references player);
+CREATE TABLE
+
+postgres=# insert into goal values('g001','12:45pm','12-jan-2021','p001');
+INSERT 0 1
+postgres=# insert into goal values('g002','2:00pm','20-jan-2021','p002');
+INSERT 0 1
+postgres=# insert into goal values('g003','8:00am','20-feb-2021','p005');
+INSERT 0 1
+postgres=# insert into goal values('g004','8:00pm','20-feb-2021','p006');
+INSERT 0 1
+postgres=# insert into goal values('g005','8:36pm','18-march-2021','p004');
+INSERT 0 1
+postgres=# insert into goal values('g006','9:36pm','6-march-2021','p002');
+INSERT 0 1
+postgres=# insert into goal values('g007','10:36pm','6-may-2022','p009');
+INSERT 0 1
+postgres=# insert into goal values('g008','10:00am','29-may-2022','p007');
+INSERT 0 1
+postgres=# insert into goal values('g009','1:00am','29-may-2022','p008');
+INSERT 0 1
+postgres=# insert into goal values('g0010','4:00pm','29-jun-2022','p003');
+INSERT 0 1
+
+
+postgres=# create table card(caid varchar(20) primary key,pid varchar(20) references player,uid varchar(20) references umpire,color varchar(20));
+CREATE TABLE
+
+postgres=# insert into card values('ca001','p001','u001','yellow');
+INSERT 0 1
+postgres=# insert into card values('ca002','p006','u002','yellow');
+INSERT 0 1
+postgres=# insert into card values('ca003','p009','u003','red');
+INSERT 0 1
+postgres=# insert into card values('ca004','p010','u004','yellow');
+INSERT 0 1
+postgres=# insert into card values('ca005','p005','u005','yellow');
+INSERT 0 1
